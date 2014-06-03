@@ -18,8 +18,7 @@ public class Players {
 		winnersCount = 0;
 	}
 
-	public Players() {}
-
+	
 	public boolean userGameCompleted(int i) {
 		boolean status = false;
 		if(playersPostion[i]==(99)){
@@ -41,7 +40,5 @@ public class Players {
 		return status;
 	}
 
-
-	
 	
 }

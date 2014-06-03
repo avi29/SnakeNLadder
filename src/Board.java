@@ -1,60 +1,35 @@
-import java.util.Random;
 
 
 public class Board {
 	String grid[][];
 	String gridInList[];
-	int snakeHeads[];
-	int snakeTails[];
-	int ladderHeads[];
-	int ladderTails[];
+	
+	Snakes snakes;
+	Ladders ladders;
 	
 	public Board() {
 		this.gridInList = new String[100];
 		for(int j=0;j<100;j++){
 			gridInList[j] = String.valueOf(j+1);
 		}
-		snakeHeads = new int[3];
-		snakeTails = new int[3];
-		ladderHeads = new int[3];
-		ladderTails = new int[3];
 		
-				//snake head nodes
-		snakeHeads[0] = (generateRandomNo(100));
-		snakeHeads[1] = (generateRandomNo(100));
-		snakeHeads[2] = (generateRandomNo(100));
-				
-				//snake tail nodes
-		snakeTails[0] = (generateRandomNo(snakeHeads[0]));
-		snakeTails[1] = (generateRandomNo(snakeHeads[1]));
-		snakeTails[2] = (generateRandomNo(snakeHeads[2]));
-				
-				//ladder head nodes
-		ladderHeads[0] = (generateRandomNo(100));
-		ladderHeads[1] = (generateRandomNo(100));
-		ladderHeads[2] = (generateRandomNo(100));
-				
-				//ladder tail nodes
-		ladderTails[0] = (generateRandomNo(ladderHeads[0]));
-		ladderTails[1] = (generateRandomNo(ladderHeads[1]));
-		ladderTails[2] = (generateRandomNo(ladderHeads[2]));
-				
-		gridInList[snakeHeads[0]] = "sh1";
-		gridInList[snakeHeads[1]] = "sh2";
-		gridInList[snakeHeads[2]] = "sh3";
-		gridInList[snakeTails[0]] = "st1";
-		gridInList[snakeTails[1]] = "st2";
-		gridInList[snakeTails[2]] = "st3";
-		gridInList[ladderHeads[0]] = "lh1";
-		gridInList[ladderHeads[1]] = "lh2";
-		gridInList[ladderHeads[2]] = "lh3";
-		gridInList[ladderTails[0]] = "lt1";
-		gridInList[ladderTails[1]] = "lt2";
-		gridInList[ladderTails[2]] = "lt3";
+		snakes = new Snakes();
+		ladders = new Ladders();
+		initializeSnLOnBoard();
 		this.grid = new String[10][10];		
 		
 	}
 	
+	//Initialising snakes and ladders on to this board
+	private void initializeSnLOnBoard() {
+		for(int y=0;y<snakes.headPositions.length;y++){
+			gridInList[snakes.headPositions[y]] = "SH"+String.valueOf(y+1);
+			gridInList[snakes.tailPositions[y]] = "ST"+String.valueOf(y+1);
+			gridInList[ladders.headPositions[y]] = "LH"+String.valueOf(y+1);
+			gridInList[ladders.tailPositions[y]] = "LT"+String.valueOf(y+1);
+		}
+	}
+
 	public void showBoard(Players players){
 		int k = 0;
 		for(int i=9;i>-1;i--){
@@ -99,10 +74,6 @@ public class Board {
 		}
 	}
 	
-	public static int generateRandomNo(int maxNumber){
-		Random rand = new Random();
-		return rand.nextInt(maxNumber);
-	}
 
 	public void processMove(int[] playersPostion, int player, int move) {
 		int initialPosition = (playersPostion[player]);
@@ -112,11 +83,11 @@ public class Board {
 		}
 		if(newPosition>99)newPosition = initialPosition;
 		for(int i=0;i<3;i++){
-			if(newPosition==snakeHeads[i]){
-				newPosition=snakeTails[i];
+			if(newPosition==snakes.headPositions[i]){
+				newPosition=snakes.tailPositions[i];
 				break;
-			}else if(newPosition==ladderTails[i]){
-				newPosition=ladderHeads[i];
+			}else if(newPosition==ladders.tailPositions[i]){
+				newPosition=ladders.headPositions[i];
 			}
 		}
 		playersPostion[player] = (newPosition);
