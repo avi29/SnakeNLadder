@@ -30,14 +30,14 @@ public class Board {
 		}
 	}
 
-	public void showBoard(Players players){
+	public void showBoard(Player[] players){
 		int k = 0;
 		for(int i=9;i>-1;i--){
 			if(i%2==1){
 			for(int j=0;j<10;j++){
 				grid[i][j]=gridInList[k];
-				for(int x=0;x<players.playersCount;x++){
-					if(players.playersPostion[x]==k){
+				for(int x=0;x<players.length;x++){
+					if(players[x].getPosition()==k){
 						grid[i][j] = "P"+String.valueOf(x+1)+grid[i][j];
 					}
 				}
@@ -46,8 +46,8 @@ public class Board {
 			}else{
 				for(int j=9;j>-1;j--){
 					grid[i][j]=gridInList[k];
-					for(int x=0;x<players.playersCount;x++){
-						if(players.playersPostion[x]==k){
+					for(int x=0;x<players.length;x++){
+						if(players[x].getPosition()==k){
 							grid[i][j] = "P"+String.valueOf(x+1)+grid[i][j];
 						}
 					}
@@ -75,8 +75,8 @@ public class Board {
 	}
 	
 
-	public void processMove(int[] playersPostion, int player, int move) {
-		int initialPosition = (playersPostion[player]);
+	public void processMove(Player player, int move) {
+		int initialPosition = (player.getPosition());
 		int newPosition = initialPosition + move;
 		if(initialPosition==-1&&(move!=1&&move!=6)){
 			newPosition = initialPosition;
@@ -90,7 +90,7 @@ public class Board {
 				newPosition=ladders.headPositions[i];
 			}
 		}
-		playersPostion[player] = (newPosition);
+		player.setPosition(newPosition);
 		
 	}
 }
