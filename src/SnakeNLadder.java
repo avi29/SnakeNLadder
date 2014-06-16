@@ -22,7 +22,22 @@ public class SnakeNLadder {
 		while(!snakeNLadder.gameCompleted()){
 		for(int i=0;i<playersCount;i++){
 			if(players[i].getStatus().equalsIgnoreCase("Playing")){
-				snakeNLadder.callProcess(board, players[i],i);
+				System.out.println("Player "+String.valueOf(i+1)+" move :");
+				int move = in.nextInt();
+				board.processMove(players[i],move);
+				if(players[i].userGameCompleted()){
+					System.out.println("Player "+String.valueOf(i+1)+" game completed!!");
+				}else{
+				while(move==1||move==6){
+					System.out.println("Player "+String.valueOf(i+1)+" move :");
+					move = in.nextInt();
+					board.processMove(players[i],move);
+					if(players[i].userGameCompleted()){
+						System.out.println("Player "+String.valueOf(i+1)+" game completed!!");
+						break;
+					}
+				}
+				}
 				if(snakeNLadder.gameCompleted()){
 					System.out.println("Game completed!!!");
 					break;
@@ -33,19 +48,7 @@ public class SnakeNLadder {
 		}
 		
 	}
-	
-	
-	public void callProcess(Board board, Player player, int playerNumber){
-		Scanner in = new Scanner(System.in);
-		System.out.println("Player "+String.valueOf(playerNumber+1)+" move :");
-		int move = in.nextInt();
-		board.processMove(player,move);
-		if(player.userGameCompleted()){
-			System.out.println("Player "+String.valueOf(playerNumber+1)+" game completed!!");
-		}else if(move==1||move==6){
-			callProcess(board, player, playerNumber);
-		}
-	}
+
 	
 	public boolean gameCompleted() {
 		boolean status = false;

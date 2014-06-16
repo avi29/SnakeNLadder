@@ -1,11 +1,16 @@
 
 
+
+
 public class Board {
 	String grid[][];
 	String gridInList[];
 	
-	Snakes snakes;
-	Ladders ladders;
+	int snakesCount = 3;
+	int laddersCount = 3;
+	
+	Snake[] snakes = new Snake[snakesCount];
+	Ladder[] ladders = new Ladder[laddersCount];
 	
 	public Board() {
 		this.gridInList = new String[100];
@@ -13,22 +18,20 @@ public class Board {
 			gridInList[j] = String.valueOf(j+1);
 		}
 		
-		snakes = new Snakes();
-		ladders = new Ladders();
-		initializeSnLOnBoard();
+		//Initialising snakes and ladders on to this board
+		for(int j=0;j<snakesCount;j++){
+			snakes[j] = new Snake();
+			ladders[j] = new Ladder();
+			gridInList[snakes[j].headPosition] = "SH"+String.valueOf(j+1);
+			gridInList[snakes[j].tailPosition] = "ST"+String.valueOf(j+1);
+			gridInList[ladders[j].headPosition] = "LH"+String.valueOf(j+1);
+			gridInList[ladders[j].tailPosition] = "LT"+String.valueOf(j+1);
+			}
+		
 		this.grid = new String[10][10];		
 		
 	}
 	
-	//Initialising snakes and ladders on to this board
-	private void initializeSnLOnBoard() {
-		for(int y=0;y<snakes.headPositions.length;y++){
-			gridInList[snakes.headPositions[y]] = "SH"+String.valueOf(y+1);
-			gridInList[snakes.tailPositions[y]] = "ST"+String.valueOf(y+1);
-			gridInList[ladders.headPositions[y]] = "LH"+String.valueOf(y+1);
-			gridInList[ladders.tailPositions[y]] = "LT"+String.valueOf(y+1);
-		}
-	}
 
 	public void showBoard(Player[] players){
 		int k = 0;
@@ -83,11 +86,11 @@ public class Board {
 		}
 		if(newPosition>99)newPosition = initialPosition;
 		for(int i=0;i<3;i++){
-			if(newPosition==snakes.headPositions[i]){
-				newPosition=snakes.tailPositions[i];
+			if(newPosition==snakes[i].headPosition){
+				newPosition=snakes[i].tailPosition;
 				break;
-			}else if(newPosition==ladders.tailPositions[i]){
-				newPosition=ladders.headPositions[i];
+			}else if(newPosition==ladders[i].tailPosition){
+				newPosition=ladders[i].headPosition;
 			}
 		}
 		player.setPosition(newPosition);
