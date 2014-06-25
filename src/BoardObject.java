@@ -1,5 +1,5 @@
 
-public class BoardObject {
+public abstract class BoardObject {
 	
 	int head;
 	int tail;
@@ -14,5 +14,12 @@ public class BoardObject {
 		}
 		tail = utility.generateRandomNo(head);
 	}
+	
+	boolean checkPosition(int position) {
+		if(position==head||position==tail) return true;
+		else return false;
+	}
+	
+	abstract void reachFinalPosition(Player player);
 
 }
