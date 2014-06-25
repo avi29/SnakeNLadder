@@ -1,11 +1,9 @@
 
 public class Snake extends BoardObject{
 
-	int headPosition;
-	int tailPosition;
-	
-	public Snake() {
-		headPosition = head;
-		tailPosition = tail;
+	@Override
+	void reachFinalPosition(Player player) {
+		if(player.getPosition()==head)
+			player.setPosition(tail);
 	}
 }
