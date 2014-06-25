@@ -1,11 +1,9 @@
 
 public class Ladder extends BoardObject{
 
-	int headPosition;
-	int tailPosition;
-	
-	public Ladder() {
-		headPosition = head;
-		tailPosition = tail;
+	@Override
+	void reachFinalPosition(Player player) {
+		if(player.getPosition()==tail)
+			player.setPosition(head);
 	}
 }
