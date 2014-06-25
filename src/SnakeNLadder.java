@@ -3,13 +3,26 @@ import java.util.Scanner;
 
 
 public class SnakeNLadder {
-	static int playersCount;
+	 private int playersCount;
 	public static void main(String[] args) {
-		Board board = new Board();
 		Scanner in = new Scanner(System.in);
 		System.out.println("Number of players: ");
-	      playersCount = in.nextInt();
+	      int playersCount = in.nextInt();
 	      
+	      SnakeNLadder game = new SnakeNLadder(playersCount);
+	      game.start();
+	      		
+	}
+	
+	public SnakeNLadder(int playersCount) {
+		this.playersCount = playersCount;
+	}
+	
+
+	private void start() { 
+		Board board = new Board();
+		Scanner in = new Scanner(System.in);
+
 	      Player[] players = new Player [playersCount];
 	      for(int i=0;i<playersCount;i++){
 	    	  players[i]=new Player();
@@ -17,9 +30,9 @@ public class SnakeNLadder {
 
 	      board.showBoard(players);
 	      
-		SnakeNLadder snakeNLadder = new SnakeNLadder();
 		
-		while(!snakeNLadder.gameCompleted()){
+		
+		while(!gameCompleted()){
 		for(int i=0;i<playersCount;i++){
 			if(players[i].getStatus().equalsIgnoreCase("Playing")){
 				System.out.println("Player "+String.valueOf(i+1)+" move :");
@@ -38,7 +51,7 @@ public class SnakeNLadder {
 					}
 				}
 				}
-				if(snakeNLadder.gameCompleted()){
+				if(gameCompleted()){
 					System.out.println("Game completed!!!");
 					break;
 				}
@@ -46,8 +59,7 @@ public class SnakeNLadder {
 			board.showBoard(players);
 		}
 		}
-		
-	}
+		}
 
 	
 	public boolean gameCompleted() {
