@@ -22,10 +22,10 @@ public class Board {
 		for(int j=0;j<snakesCount;j++){
 			snakes[j] = new Snake();
 			ladders[j] = new Ladder();
-			gridInList[snakes[j].headPosition] = "SH"+String.valueOf(j+1);
-			gridInList[snakes[j].tailPosition] = "ST"+String.valueOf(j+1);
-			gridInList[ladders[j].headPosition] = "LH"+String.valueOf(j+1);
-			gridInList[ladders[j].tailPosition] = "LT"+String.valueOf(j+1);
+			gridInList[snakes[j].head] = "SH"+String.valueOf(j+1);
+			gridInList[snakes[j].tail] = "ST"+String.valueOf(j+1);
+			gridInList[ladders[j].head] = "LH"+String.valueOf(j+1);
+			gridInList[ladders[j].tail] = "LT"+String.valueOf(j+1);
 			}
 		
 		this.grid = new String[10][10];		
@@ -85,15 +85,25 @@ public class Board {
 			newPosition = initialPosition;
 		}
 		if(newPosition>99)newPosition = initialPosition;
+		
+		player.setPosition(newPosition);
+
+		BoardObject boardObject = getObjectStartingAt(newPosition);
+		if(boardObject != null){
+			   boardObject.reachFinalPosition(player);
+			}
+		
+	}
+
+
+	private BoardObject getObjectStartingAt(int newPosition) {
 		for(int i=0;i<3;i++){
-			if(newPosition==snakes[i].headPosition){
-				newPosition=snakes[i].tailPosition;
-				break;
-			}else if(newPosition==ladders[i].tailPosition){
-				newPosition=ladders[i].headPosition;
+			if(snakes[i].checkPosition(newPosition)){
+				return snakes[i];
+			}else if(ladders[i].checkPosition(newPosition)){
+				return ladders[i];
 			}
 		}
-		player.setPosition(newPosition);
-		
+		return null;
 	}
 }
