@@ -1,7 +1,3 @@
-
-
-
-
 public class Board {
 	String grid[][];
 	String gridInList[];
@@ -22,6 +18,7 @@ public class Board {
 		for(int j=0;j<snakesCount;j++){
 			snakes[j] = new Snake();
 			ladders[j] = new Ladder();
+            //todo : rendering specific. Can this be moved into the render method? Evil inside a constructor.
 			gridInList[snakes[j].head] = "SH"+String.valueOf(j+1);
 			gridInList[snakes[j].tail] = "ST"+String.valueOf(j+1);
 			gridInList[ladders[j].head] = "LH"+String.valueOf(j+1);

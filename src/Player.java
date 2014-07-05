@@ -2,14 +2,15 @@
 public class Player {
 	
 	private int position;
-	private String status;
-	private int winnerPosition;
+	private PlayerStatus status;
+	private int rank;
 	static int winnersCount = 0;
+    private String name;
 	
 	public Player() {
 		position = -1;
-		status = "Playing";
-		setWinnerPosition(0);
+		status = PlayerStatus.Playing;
+		setRank(0);
 	}
 
 	public boolean userGameCompleted() {
@@ -17,8 +18,8 @@ public class Player {
 		if(position==(99)){
 			response = true;
 			winnersCount++;	
-			setStatus("completed");
-			setWinnerPosition(winnersCount);
+			setStatus(PlayerStatus.Completed);
+			setRank(winnersCount);
 			setPosition(100);
 			
 		}
@@ -33,21 +34,29 @@ public class Player {
 		this.position = position;
 	}
 
-	public String getStatus() {
+	public PlayerStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(PlayerStatus status) {
 		this.status = status;
 	}
 
-	public int getWinnerPosition() {
-		return winnerPosition;
+	public void setRank(int winnerPosition) {
+		this.rank = winnerPosition;
 	}
 
-	public void setWinnerPosition(int winnerPosition) {
-		this.winnerPosition = winnerPosition;
-	}
-	
-	
+
+    public boolean isStillPlaying() {
+        return this.getStatus() == PlayerStatus.Playing;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
+
