@@ -4,6 +4,7 @@ public class Player {
 	private int position;
 	private PlayerStatus status;
 	private int rank;
+    //todo : find a better way than handling this as a static.
 	static int winnersCount = 0;
     private String name;
 	
@@ -17,7 +18,7 @@ public class Player {
 		boolean response = false;
 		if(position==(99)){
 			response = true;
-			winnersCount++;	
+			winnersCount++;
 			setStatus(PlayerStatus.Completed);
 			setRank(winnersCount);
 			setPosition(100);

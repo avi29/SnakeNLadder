@@ -15,6 +15,7 @@ public class SnakeNLadderGame {
 
         while (!gameCompleted()) {
             this.currentPlayer = this.getNextPLayer();
+            //todo : some duplicate code with the else block , can we extract into may be, takeTurn() method ?
             int numberThrown = Dice.roll();
             board.processMove(currentPlayer, numberThrown);
             if (currentPlayer.userGameCompleted()) {
